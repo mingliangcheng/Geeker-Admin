@@ -19,7 +19,7 @@ RUN pnpm install
 COPY . .
 
 # 打包项目
-RUN pnpm run build:pro
+RUN pnpm build:pro
 
 # 暴露端口
 EXPOSE 3001
