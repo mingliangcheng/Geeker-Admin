@@ -1,5 +1,5 @@
 # 使用Node 20版本的基础镜像
-FROM node:20.11.0
+FROM node:20
 
 LABEL authors="陈明亮"
 
@@ -19,10 +19,10 @@ RUN pnpm install
 COPY . .
 
 # 打包项目
-RUN pnpm build:pro
+RUN pnpm run build:pro
 
 # 暴露端口
 EXPOSE 3001
 
 # 启动应用
-# CMD ["pnpm", "start"]
+CMD ["pnpm", "start"]
