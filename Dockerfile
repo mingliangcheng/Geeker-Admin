@@ -1,5 +1,5 @@
 # 使用Node 20版本的基础镜像
-FROM node:20
+FROM node:20 as build-stage
 
 LABEL authors="陈明亮"
 
@@ -21,8 +21,8 @@ COPY . .
 # 打包项目
 RUN pnpm run build:pro
 
-# 暴露端口
-EXPOSE 3001
-
-# 启动应用
-CMD ["pnpm", "start"]
+# 第二阶段：使用 Nginx 部署 Vue 应用
+FROM nginx:latest as production-stage
+COPY --from=build-stage /app/dist /etc/nginx/html/geeker
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
